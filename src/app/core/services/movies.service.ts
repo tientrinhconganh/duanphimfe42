@@ -2,7 +2,15 @@ import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject } from "rxjs";
 import { Movies } from "../models/movies";
 import { ApiService } from "./api.service";
-import { tap } from "rxjs/operators";
+import { tap,catchError } from "rxjs/operators";
+import {  HttpHeaders } from '@angular/common/http';
+
+
+const HttpOptions = {
+  headers: new HttpHeaders({
+    "Content-Type": "application/json"
+  })
+}
 
 @Injectable({
   providedIn: "root",
@@ -54,4 +62,5 @@ export class MoviesService {
     //   maNhom: "GP01",});
     return this.api.post(url, formData);
   }
+
 }

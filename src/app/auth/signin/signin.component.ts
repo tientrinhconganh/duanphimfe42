@@ -3,14 +3,22 @@ import { Router } from '@angular/router'
 import { FormGroup, FormControl, Validators} from '@angular/forms'
 import { AuthService } from '../../core/services/auth.service';
 
+import { SocialAuthService } from "angularx-social-login";
+import { SocialUser } from 'angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider } from "angularx-social-login";
+import {faFacebook,faGoogle} from '@fortawesome/free-brands-svg-icons'
+
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent implements OnInit {
+  user: SocialUser;
   signinForm: FormGroup
-  constructor(private auth: AuthService, private router : Router) {
+  faFacebook=faFacebook
+  faGoogle=faGoogle
+  constructor(private auth: AuthService, private router : Router,private authService: SocialAuthService) {
     this.signinForm = new FormGroup({
       taiKhoan: new FormControl('',[Validators.required]),
       matKhau: new FormControl('',[
@@ -22,7 +30,9 @@ export class SigninComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    
+    this.authService.authState.subscribe(user => {
+      this.user = user;
+    });
   }
 
   dangNhap(){
@@ -38,6 +48,18 @@ export class SigninComponent implements OnInit {
         this.router.navigate(['/'])
       }
     });
+  }
+
+  signInWithGoogle(): void {
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+ 
+  signInWithFB(): void {
+    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+ 
+  signOut(): void {
+    this.authService.signOut();
   }
 
 }

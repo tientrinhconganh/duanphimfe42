@@ -1,6 +1,5 @@
 import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SliderComponent } from './slider/slider.component';
 import { LichChieuComponent } from './lich-chieu/lich-chieu.component';
 import { SapChieuComponent } from './sap-chieu/sap-chieu.component';
 import { DangChieuComponent } from './dang-chieu/dang-chieu.component';
@@ -16,6 +15,8 @@ import { DienAnhComponent } from './dien-anh/dien-anh.component';
 import { TrangChuComponent } from './trang-chu.component';
 import { HeaderModule } from './../header/header.module';
 import { FooterModule } from 'src/app/home/footer/footer.module';
+import {SliderModule} from './slider/slider.module'
+
 
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { RouterModule, Routes } from '@angular/router';
@@ -46,7 +47,6 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     TrangChuComponent,
-    SliderComponent,
     LichChieuComponent,
     SapChieuComponent,
     DangChieuComponent,
@@ -68,7 +68,8 @@ const routes: Routes = [
     CarouselModule,
     RouterModule.forChild(routes),
     RouterModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    SliderModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
